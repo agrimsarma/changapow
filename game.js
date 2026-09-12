@@ -336,7 +336,7 @@ function log(msg) {
 function rollSticks() {
   const flats = [0, 1, 2, 3].map(() => Math.random() < 0.5);
   const flatCount = flats.filter(Boolean).length;
-  const score = flatCount === 0 ? 8 : flatCount;
+  const score = flatCount === 4 ? 8 : 4 - flatCount;
 
   const resultEl = document.getElementById('rollResult');
   resultEl.textContent = `Rolled: ${flatCount} flat / 4 sticks -> score ${score}${score === 8 ? ' (bonus turn!)' : ''}`;

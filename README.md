@@ -13,11 +13,11 @@ Open `index.html` in a browser to play — no build step, no dependencies.
 
   | Sticks flat | Score |
   |---|---|
-  | 0 (all round) | **8** (bonus: roll again) |
-  | 1 | 1 |
+  | 0 (all round) | 4 |
+  | 1 | 3 |
   | 2 | 2 |
-  | 3 | 3 |
-  | 4 (all flat) | 4 |
+  | 3 | 1 |
+  | 4 (all flat) | **8** (bonus: roll again) |
 
 - Any roll can bring a token out of the yard.
 - Tokens travel clockwise around the shared cross-track, then peel off into
