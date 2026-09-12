@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/nocturne-ab52707d-5591-4ff5-8e2f-c64fbdd25975/styles.css">
+  <script src="_ds/nocturne-ab52707d-5591-4ff5-8e2f-c64fbdd25975/_ds_bundle.js"></script>
+  <style>
+    body { margin: 0; background: var(--color-bg); }
+    .stick { width: 64px; height: 20px; border-radius: 10px; background: linear-gradient(180deg, #d8b487, #b8895c); box-shadow: inset 0 -3px 4px rgba(0,0,0,0.35); position: relative; }
+    .stick-round::before { content: ""; position: absolute; left: 6px; right: 6px; top: -7px; height: 16px; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, #ecceA0, #c99a68); }
+  </style>
+</helmet>
+<div style="min-height: 100vh; padding: var(--space-8); display: flex; flex-wrap: wrap; gap: var(--space-8); align-items: flex-start; justify-content: center; font-family: var(--font-body); color: var(--color-text);">
+
+  <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+    <div>
+      <div style="font-family: var(--font-heading); font-weight: 500; font-size: 28px; color: var(--color-text);">Changa Pow</div>
+      <div style="color: var(--color-neutral-300); font-size: 14px;">Board reference &mdash; cross-track, 4 players, wooden-stick roll</div>
+    </div>
+
+    <div style="position: relative; display: grid; grid-template-columns: repeat(15, 36px); grid-template-rows: repeat(15, 36px); background: var(--color-neutral-900); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); overflow: hidden;">
+
+      <sc-for list="{{ quadrants }}" as="q" hint-placeholder-count="4">
+        <div style="grid-column: {{ q.gridCol }}; grid-row: {{ q.gridRow }}; background: {{ q.bg }}; border: 1px solid {{ q.border }}; display: flex; align-items: center; justify-content: center;">
+          <div style="width: 108px; height: 108px; background: var(--color-neutral-800); border-radius: var(--radius-sm); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; padding: 12px; box-sizing: border-box;">
+            <sc-for list="{{ q.tokens }}" as="t" hint-placeholder-count="4">
+              <div style="width: 26px; height: 26px; border-radius: 50%; background: {{ q.color }}; box-shadow: inset 0 -3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.4); justify-self: center; align-self: center;"></div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+
+      <sc-for list="{{ trackCells }}" as="cell" hint-placeholder-count="81">
+        <div style="grid-column: {{ cell.gridCol }}; grid-row: {{ cell.gridRow }}; background: {{ cell.bg }}; border: 1px solid var(--color-neutral-700); display: flex; align-items: center; justify-content: center;">
+          <sc-if value="{{ cell.marker }}" hint-placeholder-val="{{ false }}">
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: {{ cell.markerColor }};"></div>
+          </sc-if>
+        </div>
+      </sc-for>
+
+      <div style="grid-column: 7 / 10; grid-row: 7 / 10; position: relative; background: var(--color-neutral-800);">
+        <sc-for list="{{ centerTriangles }}" as="tri" hint-placeholder-count="4">
+          <div style="position: absolute; inset: 0; clip-path: {{ tri.clip }}; background: {{ tri.color }};"></div>
+        </sc-for>
+        <div style="position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--color-neutral-900); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 500; color: var(--color-text); text-align: center; line-height: 1.1;">CP</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 260px; display: flex; flex-direction: column; gap: var(--space-6);">
+    <div class="card elev-sm" style="padding: var(--space-4);">
+      <div class="card-title">Players</div>
+      <div style="display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-2);">
+        <sc-for list="{{ quadrants }}" as="q" hint-placeholder-count="4">
+          <div style="display: flex; align-items: center; gap: var(--space-2);">
+            <div style="width: 16px; height: 16px; border-radius: 50%; background: {{ q.color }};"></div>
+            <div style="font-size: 13px; color: var(--color-neutral-100);">{{ q.name }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div class="card elev-sm" style="padding: var(--space-4);">
+      <div class="card-title">Stick roll</div>
+      <div style="color: var(--color-neutral-300); font-size: 12px; margin: var(--space-2) 0 var(--space-3);">4 half-cylinder sticks, tossed each turn.</div>
+      <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+          <div class="stick"></div>
+          <div style="font-size: 11px; color: var(--color-neutral-300);">flat side up</div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+          <div class="stick stick-round"></div>
+          <div style="font-size: 11px; color: var(--color-neutral-300);">round side up</div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <sc-for list="{{ scoreRows }}" as="row" hint-placeholder-count="5">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-neutral-100); border-top: 1px solid var(--color-neutral-800); padding-top: 4px;">
+            <span>{{ row.label }}</span>
+            <span style="color: var(--color-accent-300); font-weight: 500;">{{ row.score }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const colors = {
+      A: '#9184d9',
+      B: '#5fa88f',
+      C: '#c9a24d',
+      D: '#c96a6a'
+    };
+    const quadrants = [
+      { key: 'A', name: 'Violet', color: colors.A, bg: 'color-mix(in oklch, ' + colors.A + ' 16%, var(--color-neutral-900))', border: colors.A, gridCol: '1 / 7', gridRow: '1 / 7', tokens: [1,2,3,4] },
+      { key: 'B', name: 'Teal', color: colors.B, bg: 'color-mix(in oklch, ' + colors.B + ' 16%, var(--color-neutral-900))', border: colors.B, gridCol: '10 / 16', gridRow: '1 / 7', tokens: [1,2,3,4] },
+      { key: 'C', name: 'Amber', color: colors.C, bg: 'color-mix(in oklch, ' + colors.C + ' 16%, var(--color-neutral-900))', border: colors.C, gridCol: '10 / 16', gridRow: '10 / 16', tokens: [1,2,3,4] },
+      { key: 'D', name: 'Rose', color: colors.D, bg: 'color-mix(in oklch, ' + colors.D + ' 16%, var(--color-neutral-900))', border: colors.D, gridCol: '1 / 7', gridRow: '10 / 16', tokens: [1,2,3,4] }
+    ];
+
+    const starts = { '6,1': 'A', '1,8': 'B', '8,13': 'C', '13,6': 'D' };
+    const safes = ['2,6', '6,12', '12,8', '8,2'];
+
+    const trackCells = [];
+    for (let r = 0; r < 15; r++) {
+      for (let c = 0; c < 15; c++) {
+        const inCross = (r >= 6 && r <= 8) || (c >= 6 && c <= 8);
+        const inCenter = r >= 6 && r <= 8 && c >= 6 && c <= 8;
+        if (!inCross || inCenter) continue;
+
+        let bg = 'var(--color-neutral-800)';
+        let marker = false, markerColor = null;
+        const key = r + ',' + c;
+
+        if (c === 7 && r < 6) bg = 'color-mix(in oklch, ' + colors.A + ' 55%, var(--color-neutral-800))';
+        else if (r === 7 && c > 8) bg = 'color-mix(in oklch, ' + colors.B + ' 55%, var(--color-neutral-800))';
+        else if (c === 7 && r > 8) bg = 'color-mix(in oklch, ' + colors.C + ' 55%, var(--color-neutral-800))';
+        else if (r === 7 && c < 6) bg = 'color-mix(in oklch, ' + colors.D + ' 55%, var(--color-neutral-800))';
+
+        if (starts[key]) {
+          const col = colors[starts[key]];
+          bg = 'color-mix(in oklch, ' + col + ' 45%, var(--color-neutral-800))';
+          marker = true; markerColor = col;
+        } else if (safes.indexOf(key) !== -1) {
+          marker = true; markerColor = 'var(--color-neutral-300)';
+        }
+
+        trackCells.push({ gridCol: (c + 1) + ' / ' + (c + 2), gridRow: (r + 1) + ' / ' + (r + 2), bg, marker, markerColor });
+      }
+    }
+
+    const centerTriangles = [
+      { clip: 'polygon(0 0, 100% 0, 50% 50%)', color: colors.A },
+      { clip: 'polygon(100% 0, 100% 100%, 50% 50%)', color: colors.B },
+      { clip: 'polygon(100% 100%, 0 100%, 50% 50%)', color: colors.C },
+      { clip: 'polygon(0 100%, 0 0, 50% 50%)', color: colors.D }
+    ];
+
+    const scoreRows = [
+      { label: '0 sticks flat', score: '8' },
+      { label: '1 stick flat', score: '1' },
+      { label: '2 sticks flat', score: '2' },
+      { label: '3 sticks flat', score: '3' },
+      { label: '4 sticks flat', score: '4' }
+    ];
+
+    return { quadrants, trackCells, centerTriangles, scoreRows };
+  }
+}
+</script>
+</body>
+</html>
